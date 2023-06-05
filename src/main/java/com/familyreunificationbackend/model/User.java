@@ -1,6 +1,7 @@
 package com.familyreunificationbackend.model;
 
 import java.time.LocalDate;
+import java.util.Base64;
 
 import com.familyreunificationbackend.enums.Role;
 
@@ -42,4 +43,7 @@ public class User {
     private Role role;
     private String username;
     private String password;
+    public String getProfilePicture(){
+        return Base64.getEncoder().encodeToString(profilePicture);
+    }
 }
