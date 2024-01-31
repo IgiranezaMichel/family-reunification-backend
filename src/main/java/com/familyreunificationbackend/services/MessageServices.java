@@ -3,8 +3,8 @@ package com.familyreunificationbackend.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.familyreunificationbackend.repository.CaseRepository;
+import com.familyreunificationbackend.repository.MessageRepository;
 @Service
-public class CaseServices {
-    @Autowired private CaseRepository caseRepository;
+public class MessageServices {
+    @Autowired private MessageRepository messageRepository;
 }
