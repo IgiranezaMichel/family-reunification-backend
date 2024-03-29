@@ -29,7 +29,7 @@ public class OrganizationController {
     }
 
     @QueryMapping()
-    public OrganizationPage organizationPage(@Argument(name = "paginationInput") PaginationInput input) {
+    public OrganizationPage organizationPage(@Argument(name = "organizationPageInput") PaginationInput input) {
         return organizationServices.organizationPage(input);
     }
 }
