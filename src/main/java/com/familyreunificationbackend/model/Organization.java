@@ -18,5 +18,6 @@ private long id;
 private String name;
 private String logo;
 private String description;
+private String address;
 private LocalDateTime timeStamp;
 }
