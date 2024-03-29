@@ -19,7 +19,7 @@ public class OrganizationServices {
 
     public ResponseEntity<String>saveOrUpdateOrganization(Organization data){
         Organization org=organizationRepository.save(data);
-        return new ResponseEntity<>(org.getName()+" saved successful",HttpStatus.OK);
+        return new ResponseEntity<>(org.getName()+" organization saved successful",HttpStatus.OK);
     }
 
     public Organization findOrganizationById(long id){
@@ -35,7 +35,7 @@ public class OrganizationServices {
            return new ResponseEntity<>("Organization not found",HttpStatus.METHOD_NOT_ALLOWED);
         } 
     }
-    
+
     public OrganizationPage organizationPage(PaginationInput page){
         Page<Organization>pagination=organizationRepository.findAll(PageRequest.of(page.getPageNumber(),page.getPageSize(),Sort.by(page.getSort())));
         return new OrganizationPage(pagination.getNumber(), page.getPageSize(), pagination.getTotalElements(), pagination.getContent());
