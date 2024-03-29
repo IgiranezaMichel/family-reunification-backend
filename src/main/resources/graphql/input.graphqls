@@ -1,0 +1,12 @@
+input OrganizationInput {
+  id: ID
+  name: String
+  logo: String
+  description: String
+  address: String
+}
+input PaginationInput {
+  pageNumber: Int
+  pageSize: Int
+  sort: String
+}
