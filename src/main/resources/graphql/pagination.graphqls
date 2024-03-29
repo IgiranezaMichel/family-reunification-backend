@@ -1,0 +1,6 @@
+type OrganizationPage {
+  pageNumber: Int
+  pageSize: Int
+  size: Long
+  content: [Organization]
+}
