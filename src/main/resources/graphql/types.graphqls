@@ -1,0 +1,10 @@
+scalar LocalDateTime
+scalar Long
+type Organization{
+  id:ID
+  name:String
+  logo:String
+  description:String
+  address:String
+  timeStamp:LocalDateTime
+}
