@@ -16,13 +16,16 @@ import com.familyreunificationbackend.repository.OrganizationRepository;
 @Service
 public class OrganizationServices {
     @Autowired private OrganizationRepository organizationRepository;
+
     public ResponseEntity<String>saveOrUpdateOrganization(Organization data){
         Organization org=organizationRepository.save(data);
         return new ResponseEntity<>(org.getName()+" saved successful",HttpStatus.OK);
     }
+
     public Organization findOrganizationById(long id){
         return organizationRepository.findById(id).orElseThrow();
     }
+
     public ResponseEntity<String> deleteOrganization(long id){
         try {
             Organization org=this.findOrganizationById(id);
@@ -32,6 +35,7 @@ public class OrganizationServices {
            return new ResponseEntity<>("Organization not found",HttpStatus.METHOD_NOT_ALLOWED);
         } 
     }
+    
     public OrganizationPage organizationPage(PaginationInput page){
         Page<Organization>pagination=organizationRepository.findAll(PageRequest.of(page.getPageNumber(),page.getPageSize(),Sort.by(page.getSort())));
         return new OrganizationPage(pagination.getNumber(), page.getPageSize(), pagination.getTotalElements(), pagination.getContent());
