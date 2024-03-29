@@ -1,3 +1,4 @@
 type Query{
-    organizationPage(paginationInput:OrganizationInput):OrganizationPage
+    # organization
+    organizationPage(organizationPageInput:PaginationInput):OrganizationPage
 }
