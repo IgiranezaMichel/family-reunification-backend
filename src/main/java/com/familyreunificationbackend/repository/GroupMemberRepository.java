@@ -2,6 +2,8 @@ package com.familyreunificationbackend.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface GroupMemberRepository extends JpaRepository<GroupMemberRepository,Long>{
+import com.familyreunificationbackend.model.GroupMember;
+
+public interface GroupMemberRepository extends JpaRepository<GroupMember,Long>{
 
 }
