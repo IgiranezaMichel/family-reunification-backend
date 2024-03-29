@@ -5,6 +5,6 @@ import org.springframework.stereotype.Service;
 
 import com.familyreunificationbackend.repository.CaseRepository;
 @Service
-public class CaseServices {
+public class UserCaseServices {
     @Autowired private CaseRepository caseRepository;
 }
