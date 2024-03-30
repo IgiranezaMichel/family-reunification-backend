@@ -1,5 +1,7 @@
 package com.familyreunificationbackend.services;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +20,7 @@ public class OrganizationServices {
     @Autowired private OrganizationRepository organizationRepository;
 
     public ResponseEntity<String>saveOrUpdateOrganization(Organization data){
+        data.setTimeStamp(LocalDateTime.now());
         Organization org=organizationRepository.save(data);
         return new ResponseEntity<>(org.getName()+" organization saved successful",HttpStatus.OK);
     }
