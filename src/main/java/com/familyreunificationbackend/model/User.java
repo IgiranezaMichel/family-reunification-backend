@@ -2,8 +2,12 @@ package com.familyreunificationbackend.model;
 
 import java.time.LocalDate;
 
+import com.familyreunificationbackend.enums.Role;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,6 +33,8 @@ private LocalDate dob;
 private String address;
 private String country;
 private String nativeCountry;
+@Enumerated(EnumType.STRING)
+private Role role;
 private String username;
 private String password;
 }
