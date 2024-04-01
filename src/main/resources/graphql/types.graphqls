@@ -13,7 +13,7 @@ type User{
   id:Long
   firstName:String
   lastName:String
-  profilePicture:String
+  profilePicture:ID
   gender:String
   email:String
   phoneNumber:String
