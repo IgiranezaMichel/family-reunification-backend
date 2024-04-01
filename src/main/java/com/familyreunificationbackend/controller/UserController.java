@@ -27,7 +27,7 @@ public class UserController {
         return userServices.deleteUser(id);
     }
     @QueryMapping()
-    public UserPage userPage(@Argument(name = "page")PaginationInput paginationInput){
+    public UserPage userPage(@Argument(name = "userPage")PaginationInput paginationInput){
         return userServices.userPage(paginationInput);
     }
 }
