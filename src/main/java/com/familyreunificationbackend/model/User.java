@@ -11,6 +11,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,21 +21,25 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 public class User {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-private long id;
-private String firstName;
-private String lastName;
-@Column(columnDefinition = "longBlob")
-private String profilePicture;
-private String gender;
-private String email;
-private String phoneNumber;
-private LocalDate dob;
-private String address;
-private String country;
-private String nativeCountry;
-@Enumerated(EnumType.STRING)
-private Role role;
-private String username;
-private String password;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    private String firstName;
+    private String lastName;
+    @Lob
+    @Column(columnDefinition = "longBlob")
+    private byte[] profilePicture;
+    @Column(length = 10)
+    private String gender;
+    private String email;
+    @Column(length = 15)
+    private String phoneNumber;
+    private LocalDate dob;
+    private String address;
+    private String country;
+    private String nativeCountry;
+    @Enumerated(EnumType.STRING)
+    private Role role;
+    private String username;
+    private String password;
 }
