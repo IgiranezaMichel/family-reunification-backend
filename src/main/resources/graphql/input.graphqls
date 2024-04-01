@@ -14,7 +14,7 @@ input UserInput{
   id:Long
   firstName:String
   lastName:String
-  profilePicture:String
+  base64ProfilePicture:String
   gender:String
   email:String
   phoneNumber:String
