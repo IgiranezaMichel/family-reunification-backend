@@ -24,8 +24,11 @@ private String lastName;
 private String profilePicture;
 private String gender;
 private String email;
+private String phoneNumber;
 private LocalDate dob;
 private String address;
+private String country;
+private String nativeCountry;
 private String username;
 private String password;
 }
