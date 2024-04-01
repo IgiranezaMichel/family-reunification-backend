@@ -1,4 +1,6 @@
 type Query{
     # organization
     organizationPage(organizationPageInput:PaginationInput):OrganizationPage
+    # user
+    userPage(userPage:PaginationInput):UserPage
 }
