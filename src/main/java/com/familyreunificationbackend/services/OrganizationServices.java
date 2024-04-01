@@ -29,6 +29,7 @@ public class OrganizationServices {
         return organizationRepository.findById(id).orElseThrow();
     }
 
+    @SuppressWarnings("null")
     public ResponseEntity<String> deleteOrganization(long id){
         try {
             Organization org=this.findOrganizationById(id);
