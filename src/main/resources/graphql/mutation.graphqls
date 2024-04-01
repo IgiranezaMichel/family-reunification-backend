@@ -2,4 +2,7 @@ type Mutation{
     # organization
     saveOrganization(organizationInput:OrganizationInput):String
     removeOrganization(id:Long):String
+    # user
+    saveUser(userInput:UserInput):String
+    deleteUser(id:Long):String
 }
