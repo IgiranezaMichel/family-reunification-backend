@@ -8,3 +8,19 @@ type Organization{
   address:String
   timeStamp:LocalDateTime
 }
+type User{
+  id:Long
+  firstName:String
+  lastName:String
+  profilePicture:String
+  gender:String
+  email:String
+  phoneNumber:String
+  dob:LocalDate
+  address:String
+  country:String
+  nativeCountry:String
+  role:Role
+  username:String
+  password:String
+}
