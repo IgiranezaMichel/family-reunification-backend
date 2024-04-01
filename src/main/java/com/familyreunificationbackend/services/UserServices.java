@@ -19,7 +19,9 @@ import com.familyreunificationbackend.repository.UserRepository;
 public class UserServices {
     @Autowired private UserRepository userRepository;
     public ResponseEntity<String> saveOrUpdateUser(UserInput userInput){
-        User user=new User(userInput.getId(), userInput.getFirstName(), userInput.getLastName(), Base64.getDecoder().decode(userInput.getBase64ProfilePicture()), userInput.getGender(), userInput.getEmail(), userInput.getPhoneNumber(), userInput.getDob(), userInput.getAddress(), userInput.getCountry(), userInput.getNativeCountry(), Role.USER, userInput.getUsername(), userInput.getPassword());
+        String img= userInput.getBase64ProfilePicture().replaceAll("data:image/png;base64,", "");
+        byte [] arr=Base64.getDecoder().decode(img);
+        User user=new User(userInput.getId(), userInput.getFirstName(), userInput.getLastName(), arr, userInput.getGender(), userInput.getEmail(), userInput.getPhoneNumber(), userInput.getDob(), userInput.getAddress(), userInput.getCountry(), userInput.getNativeCountry(), Role.USER, userInput.getUsername(), userInput.getPassword());
         User result=userRepository.save(user);
         if(userInput.getId()!=0)return new ResponseEntity<>("Hi "+result.getFirstName()+" Your Information has updated successful",HttpStatus.OK);
         return new ResponseEntity<>("Hi "+result.getFirstName()+" Your Information has saved successful",HttpStatus.OK); 
@@ -39,6 +41,7 @@ public class UserServices {
     }
     public UserPage userPage(PaginationInput page){
         Page<User>pagination=userRepository.findAll(PageRequest.of(page.getPageNumber(),page.getPageSize(),Sort.by(page.getSort())));
+        pagination.getContent().forEach(i->System.out.println(Base64.getEncoder().encodeToString(i.getProfilePicture())));
         return new UserPage(pagination.getNumber(), page.getPageSize(), pagination.getTotalElements(), pagination.getContent());
     }
 }
