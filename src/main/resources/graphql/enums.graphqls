@@ -2,3 +2,7 @@ enum LostStatus{
     FOUND
     NOT_FOUND
 }
+ enum Role {
+ADMIN,
+USER
+}
