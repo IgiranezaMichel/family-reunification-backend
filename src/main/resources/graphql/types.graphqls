@@ -25,3 +25,10 @@ type User{
   username:String
   password:String
 }
+type Cases{
+  id:Long
+  title:String
+  description:String
+  user:User
+  role:Role
+}
