@@ -9,16 +9,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.familyreunificationbackend.model.Cases;
-import com.familyreunificationbackend.model.User;
+import com.familyreunificationbackend.model.Customer;
 import com.familyreunificationbackend.repository.CasesRepository;
 
 @Service
 public class CaseServices {
     @Autowired private CasesRepository caseRepository;
-    @Autowired private UserServices userServices;
+    @Autowired private CustomerServices userServices;
     public ResponseEntity<String> saveOrUpdate(Cases cases,long userId){
         try {
-        User user=userServices.findUserById(userId);
+        Customer user=userServices.findUserById(userId);
         cases.setUser(user);
         boolean isFound=caseRepository.existsByTitle(cases.getTitle());
         if(isFound)throw new Exception("Case already exist");

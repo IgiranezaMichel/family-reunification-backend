@@ -10,12 +10,12 @@ import org.springframework.stereotype.Controller;
 import com.familyreunificationbackend.input.UserInput;
 import com.familyreunificationbackend.model.pagination.UserPage;
 import com.familyreunificationbackend.model.paginationDefinition.PaginationInput;
-import com.familyreunificationbackend.services.UserServices;
+import com.familyreunificationbackend.services.CustomerServices;
 
 @Controller
-public class UserController {
+public class CustomerController {
     @Autowired
-    private UserServices userServices;
+    private CustomerServices userServices;
 
     @MutationMapping()
     public ResponseEntity<String> saveUser(@Argument(name = "userInput") UserInput userInput) {

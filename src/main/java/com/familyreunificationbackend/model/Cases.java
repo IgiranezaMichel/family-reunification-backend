@@ -20,7 +20,7 @@ public class Cases {
 private long id;
 private String title;
 private String description;
-@ManyToOne(cascade = CascadeType.ALL,targetEntity =User.class)
-private User user;
+@ManyToOne(cascade = CascadeType.ALL,targetEntity =Customer.class)
+private Customer user;
 private Role role;
 }

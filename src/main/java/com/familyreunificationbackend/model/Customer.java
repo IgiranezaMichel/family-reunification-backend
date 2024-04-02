@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-public class User {
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -49,7 +49,7 @@ public class User {
     public String getProfilePicture(){
         return Base64.getEncoder().encodeToString(profilePicture);
     }
-    public User(long id,String firstName,String lastName,byte[] profilePicture, String gender,
+    public Customer(long id,String firstName,String lastName,byte[] profilePicture, String gender,
    String email, String phoneNumber, LocalDate dob, String address, String country, String nativeCountry
     ,Role role, String username, String password){
         this.id=id;

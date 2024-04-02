@@ -11,24 +11,24 @@ import org.springframework.stereotype.Service;
 
 import com.familyreunificationbackend.enums.Role;
 import com.familyreunificationbackend.input.UserInput;
-import com.familyreunificationbackend.model.User;
+import com.familyreunificationbackend.model.Customer;
 import com.familyreunificationbackend.model.pagination.UserPage;
 import com.familyreunificationbackend.model.paginationDefinition.PaginationInput;
-import com.familyreunificationbackend.repository.UserRepository;
+import com.familyreunificationbackend.repository.CustomerRepository;
 
 @Service
-public class UserServices {
+public class CustomerServices {
     @Autowired
-    private UserRepository userRepository;
+    private CustomerRepository userRepository;
 
     public ResponseEntity<String> saveOrUpdateUser(UserInput userInput) {
         String img = userInput.getBase64ProfilePicture().replaceAll("data:image/png;base64,", "");
         byte[] arr = Base64.getDecoder().decode(img);
-        User user = new User(userInput.getId(), userInput.getFirstName(), userInput.getLastName(), arr,
+        Customer user = new Customer(userInput.getId(), userInput.getFirstName(), userInput.getLastName(), arr,
                 userInput.getGender(), userInput.getEmail(), userInput.getPhoneNumber(), userInput.getDob(),
                 userInput.getAddress(), userInput.getCountry(), userInput.getNativeCountry(), Role.USER,
                 userInput.getUsername(), userInput.getPassword());
-        User result = userRepository.save(user);
+        Customer result = userRepository.save(user);
         if (userInput.getId() != 0)
             return new ResponseEntity<>("Hi " + result.getFirstName() + " Your Information has updated successful",
                     HttpStatus.OK);
@@ -36,14 +36,14 @@ public class UserServices {
                 HttpStatus.OK);
     }
 
-    public User findUserById(long id) {
+    public Customer findUserById(long id) {
         return userRepository.findById(id).orElseThrow();
     }
 
     @SuppressWarnings("null")
     public ResponseEntity<String> deleteUser(long id) {
         try {
-            User user = this.findUserById(id);
+            Customer user = this.findUserById(id);
             userRepository.delete(user);
             return new ResponseEntity<>(user.getFirstName() + " has deleted successful", HttpStatus.OK);
         } catch (Exception e) {
@@ -52,7 +52,7 @@ public class UserServices {
     }
 
     public UserPage userPage(PaginationInput page) {
-        Page<User> pagination = userRepository
+        Page<Customer> pagination = userRepository
                 .findAll(PageRequest.of(page.getPageNumber(), page.getPageSize(), Sort.by(page.getSort())));
         return new UserPage(pagination.getNumber(), page.getPageSize(), pagination.getTotalElements(),
                 pagination.getContent());
