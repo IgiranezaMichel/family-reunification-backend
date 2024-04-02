@@ -1,6 +1,7 @@
 package com.familyreunificationbackend.services;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,10 +20,15 @@ public class CaseServices {
         try {
         User user=userServices.findUserById(userId);
         cases.setUser(user);
+        boolean isFound=caseRepository.existsByTitle(cases.getTitle());
+        if(isFound)throw new Exception("Case already exist");
         Cases case1=caseRepository.save(cases);
         return new ResponseEntity<String>(case1.getTitle()+" created successful",HttpStatus.OK);
-        } catch (Exception e) {
+        } catch (NoSuchElementException e) {
             return new ResponseEntity<>("User not found",HttpStatus.METHOD_NOT_ALLOWED);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.METHOD_NOT_ALLOWED);
         }
     }
     public Cases findCaseById(long id){
