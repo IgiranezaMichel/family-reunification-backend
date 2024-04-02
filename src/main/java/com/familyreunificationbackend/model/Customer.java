@@ -31,7 +31,6 @@ public class Customer {
     private String firstName;
     private String lastName;
     @Lob
-    @Column(columnDefinition = "longBlob")
     private byte[] profilePicture;
     @Column(length = 10)
     private String gender;
@@ -67,6 +66,6 @@ public class Customer {
         this.username=username;
         this.password=password;
     }
-    @OneToMany(mappedBy = "user",targetEntity=Cases.class,cascade =CascadeType.ALL )
+    @OneToMany(mappedBy = "customer",targetEntity=Cases.class,cascade =CascadeType.ALL )
     public List<Cases>caseList;
 }

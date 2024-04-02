@@ -10,7 +10,7 @@ input PaginationInput {
   pageSize: Int
   sort: String
 }
-input UserInput{
+input CustomerInput{
   id:Long
   firstName:String
   lastName:String

@@ -2,9 +2,9 @@ type Mutation{
     # organization
     saveOrganization(organizationInput:OrganizationInput):String
     removeOrganization(id:Long):String
-    # user
-    saveUser(userInput:UserInput):String
-    deleteUser(id:Long):String
+    # customer
+    saveCustomer(customerInput:CustomerInput):String
+    deleteCustomer(id:Long):String
     #cases
-    saveCases(caseInput:CaseInput,userId:Long):String
+    saveCases(caseInput:CaseInput,customerId:Long):String
 }

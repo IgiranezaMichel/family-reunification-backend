@@ -9,7 +9,7 @@ type Organization{
   address:String
   timeStamp:LocalDateTime
 }
-type User{
+type Customer{
   id:Long
   firstName:String
   lastName:String
@@ -29,6 +29,6 @@ type Cases{
   id:Long
   title:String
   description:String
-  user:User
+  customer:Customer
   role:Role
 }

@@ -15,11 +15,11 @@ import com.familyreunificationbackend.repository.CasesRepository;
 @Service
 public class CaseServices {
     @Autowired private CasesRepository caseRepository;
-    @Autowired private CustomerServices userServices;
-    public ResponseEntity<String> saveOrUpdate(Cases cases,long userId){
+    @Autowired private CustomerServices customerServices;
+    public ResponseEntity<String> saveOrUpdate(Cases cases,long customerId){
         try {
-        Customer user=userServices.findUserById(userId);
-        cases.setUser(user);
+        Customer user=customerServices.findCustomerById(customerId);
+        cases.setCustomer(user);
         boolean isFound=caseRepository.existsByTitle(cases.getTitle());
         if(isFound)throw new Exception("Case already exist");
         Cases case1=caseRepository.save(cases);

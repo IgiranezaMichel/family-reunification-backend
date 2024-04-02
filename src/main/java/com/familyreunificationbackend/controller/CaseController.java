@@ -18,8 +18,8 @@ public class CaseController {
     private CaseServices caseServices;
 
     @MutationMapping
-    public ResponseEntity<String> saveCases(@Argument(name = "caseInput") Cases cases,@Argument(name = "userId")long userId) {
-        return caseServices.saveOrUpdate(cases,userId);
+    public ResponseEntity<String> saveCases(@Argument(name = "caseInput") Cases cases,@Argument(name = "customerId")long customerId) {
+        return caseServices.saveOrUpdate(cases,customerId);
     }
 
     @MutationMapping

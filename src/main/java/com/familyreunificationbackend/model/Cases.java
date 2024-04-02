@@ -21,6 +21,6 @@ private long id;
 private String title;
 private String description;
 @ManyToOne(cascade = CascadeType.ALL,targetEntity =Customer.class)
-private Customer user;
+private Customer customer;
 private Role role;
 }

@@ -7,8 +7,8 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
-import com.familyreunificationbackend.input.UserInput;
-import com.familyreunificationbackend.model.pagination.UserPage;
+import com.familyreunificationbackend.input.CustomerInput;
+import com.familyreunificationbackend.model.pagination.CustomerPage;
 import com.familyreunificationbackend.model.paginationDefinition.PaginationInput;
 import com.familyreunificationbackend.services.CustomerServices;
 
@@ -18,16 +18,16 @@ public class CustomerController {
     private CustomerServices userServices;
 
     @MutationMapping()
-    public ResponseEntity<String> saveUser(@Argument(name = "userInput") UserInput userInput) {
-        return userServices.saveOrUpdateUser(userInput);
+    public ResponseEntity<String> saveCustomer(@Argument(name = "customerInput") CustomerInput customerInput) {
+        return userServices.saveOrUpdateCustomer(customerInput);
     }
 
     @MutationMapping()
-    public ResponseEntity<String> deleteUser(@Argument(name = "id") long id) {
-        return userServices.deleteUser(id);
+    public ResponseEntity<String> deleteCustomer(@Argument(name = "id") long id) {
+        return userServices.deleteCustomer(id);
     }
     @QueryMapping()
-    public UserPage userPage(@Argument(name = "userPage")PaginationInput paginationInput){
-        return userServices.userPage(paginationInput);
+    public CustomerPage customerPage(@Argument(name = "customerPage")PaginationInput paginationInput){
+        return userServices.customerPage(paginationInput);
     }
 }

@@ -10,9 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.familyreunificationbackend.enums.Role;
-import com.familyreunificationbackend.input.UserInput;
+import com.familyreunificationbackend.input.CustomerInput;
 import com.familyreunificationbackend.model.Customer;
-import com.familyreunificationbackend.model.pagination.UserPage;
+import com.familyreunificationbackend.model.pagination.CustomerPage;
 import com.familyreunificationbackend.model.paginationDefinition.PaginationInput;
 import com.familyreunificationbackend.repository.CustomerRepository;
 
@@ -21,7 +21,7 @@ public class CustomerServices {
     @Autowired
     private CustomerRepository userRepository;
 
-    public ResponseEntity<String> saveOrUpdateUser(UserInput userInput) {
+    public ResponseEntity<String> saveOrUpdateCustomer(CustomerInput userInput) {
         String img = userInput.getBase64ProfilePicture().replaceAll("data:image/png;base64,", "");
         byte[] arr = Base64.getDecoder().decode(img);
         Customer user = new Customer(userInput.getId(), userInput.getFirstName(), userInput.getLastName(), arr,
@@ -36,14 +36,14 @@ public class CustomerServices {
                 HttpStatus.OK);
     }
 
-    public Customer findUserById(long id) {
+    public Customer findCustomerById(long id) {
         return userRepository.findById(id).orElseThrow();
     }
 
     @SuppressWarnings("null")
-    public ResponseEntity<String> deleteUser(long id) {
+    public ResponseEntity<String> deleteCustomer(long id) {
         try {
-            Customer user = this.findUserById(id);
+            Customer user = this.findCustomerById(id);
             userRepository.delete(user);
             return new ResponseEntity<>(user.getFirstName() + " has deleted successful", HttpStatus.OK);
         } catch (Exception e) {
@@ -51,10 +51,10 @@ public class CustomerServices {
         }
     }
 
-    public UserPage userPage(PaginationInput page) {
+    public CustomerPage customerPage(PaginationInput page) {
         Page<Customer> pagination = userRepository
                 .findAll(PageRequest.of(page.getPageNumber(), page.getPageSize(), Sort.by(page.getSort())));
-        return new UserPage(pagination.getNumber(), page.getPageSize(), pagination.getTotalElements(),
+        return new CustomerPage(pagination.getNumber(), page.getPageSize(), pagination.getTotalElements(),
                 pagination.getContent());
     }
 }

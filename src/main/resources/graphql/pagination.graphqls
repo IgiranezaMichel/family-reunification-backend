@@ -4,9 +4,9 @@ type OrganizationPage {
   size: Long
   content: [Organization]
 }
-type UserPage{
+type CustomerPage{
   pageNumber: Int
   pageSize: Int
   size: Long
-  content: [User]
+  content: [Customer]
 }
