@@ -22,8 +22,8 @@ public class CustomerServices {
     private CustomerRepository userRepository;
 
     public ResponseEntity<String> saveOrUpdateCustomer(CustomerInput userInput) {
-        String img = userInput.getBase64ProfilePicture().replaceAll("data:image/png;base64,", "");
-        byte[] arr = Base64.getDecoder().decode(img);
+        String imgs=userInput.getBase64ProfilePicture().split("base64,")[1];
+        byte[] arr = Base64.getDecoder().decode(imgs);
         Customer user = new Customer(userInput.getId(), userInput.getFirstName(), userInput.getLastName(), arr,
                 userInput.getGender(), userInput.getEmail(), userInput.getPhoneNumber(), userInput.getDob(),
                 userInput.getAddress(), userInput.getCountry(), userInput.getNativeCountry(), Role.USER,
