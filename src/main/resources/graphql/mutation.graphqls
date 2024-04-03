@@ -7,4 +7,5 @@ type Mutation{
     deleteCustomer(id:Long):String
     #cases
     saveCases(caseInput:CaseInput,customerId:Long):String
+    deleteCases(id:Long):String
 }
