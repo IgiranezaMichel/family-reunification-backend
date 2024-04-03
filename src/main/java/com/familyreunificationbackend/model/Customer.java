@@ -34,6 +34,7 @@ public class Customer {
     private byte[] profilePicture;
     @Column(length = 10)
     private String gender;
+    @Column(unique = true)
     private String email;
     @Column(length = 15)
     private String phoneNumber;
@@ -43,6 +44,7 @@ public class Customer {
     private String nativeCountry;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @Column(unique = true)
     private String username;
     private String password;
     public String getProfilePicture(){
