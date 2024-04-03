@@ -26,8 +26,9 @@ public class CustomerController {
     public ResponseEntity<String> deleteCustomer(@Argument(name = "id") long id) {
         return userServices.deleteCustomer(id);
     }
+
     @QueryMapping()
-    public CustomerPage customerPage(@Argument(name = "customerPage")PaginationInput paginationInput){
+    public CustomerPage customerPage(@Argument(name = "customerPage") PaginationInput paginationInput) {
         return userServices.customerPage(paginationInput);
     }
 }
