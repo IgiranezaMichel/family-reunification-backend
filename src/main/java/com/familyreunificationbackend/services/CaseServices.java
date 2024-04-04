@@ -2,7 +2,7 @@ package com.familyreunificationbackend.services;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-
+import java.time.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +20,8 @@ public class CaseServices {
         try {
         Customer user=customerServices.findCustomerById(customerId);
         cases.setCustomer(user);
+        cases.setTimeStamp(LocalDateTime.now());
+        cases.setRole(user.getRole());
         boolean isFound=caseRepository.existsByTitle(cases.getTitle());
         if(isFound)throw new Exception("Case already exist");
         Cases case1=caseRepository.save(cases);
