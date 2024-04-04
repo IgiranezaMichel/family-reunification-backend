@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.familyreunificationbackend.input.OrganizationInput;
 import com.familyreunificationbackend.model.Organization;
 import com.familyreunificationbackend.model.pagination.OrganizationPage;
 import com.familyreunificationbackend.model.paginationDefinition.PaginationInput;
@@ -19,9 +20,9 @@ import com.familyreunificationbackend.repository.OrganizationRepository;
 public class OrganizationServices {
     @Autowired private OrganizationRepository organizationRepository;
 
-    public ResponseEntity<String>saveOrUpdateOrganization(Organization data){
+    public ResponseEntity<String>saveOrUpdateOrganization(OrganizationInput data){
         data.setTimeStamp(LocalDateTime.now());
-        Organization org=organizationRepository.save(data);
+        Organization org=organizationRepository.save(new Organization(data.getId(), data.getName(), data.getBase64Logo(), data.getDescription(), data.getAddress()));
         return new ResponseEntity<>(org.getName()+" organization saved successful",HttpStatus.OK);
     }
 
