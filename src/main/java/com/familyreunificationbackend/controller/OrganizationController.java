@@ -7,7 +7,7 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
-import com.familyreunificationbackend.model.Organization;
+import com.familyreunificationbackend.input.OrganizationInput;
 import com.familyreunificationbackend.model.pagination.OrganizationPage;
 import com.familyreunificationbackend.model.paginationDefinition.PaginationInput;
 import com.familyreunificationbackend.services.OrganizationServices;
@@ -19,7 +19,7 @@ public class OrganizationController {
     private OrganizationServices organizationServices;
 
     @MutationMapping()
-    public ResponseEntity<String> saveOrganization(@Argument(name = "organizationInput") Organization organization) {
+    public ResponseEntity<String> saveOrganization(@Argument(name = "organizationInput") OrganizationInput organization) {
         return organizationServices.saveOrUpdateOrganization(organization);
     }
 
