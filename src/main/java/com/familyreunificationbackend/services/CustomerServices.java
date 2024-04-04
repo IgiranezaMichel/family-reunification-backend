@@ -40,7 +40,6 @@ public class CustomerServices {
         return userRepository.findById(id).orElseThrow();
     }
 
-    @SuppressWarnings("null")
     public ResponseEntity<String> deleteCustomer(long id) {
         try {
             Customer user = this.findCustomerById(id);

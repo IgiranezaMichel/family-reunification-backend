@@ -36,7 +36,6 @@ public class CaseServices {
     public Cases findCaseById(long id){
         return caseRepository.findById(id).orElseThrow();
     }
-    @SuppressWarnings("null")
     public ResponseEntity<String> deleteCase(long id){
         try {
             Cases cases=this.findCaseById(id);
