@@ -3,4 +3,7 @@ type Query{
     organizationPage(organizationPageInput:PaginationInput):OrganizationPage
     # Customer
     customerPage(customerPage:PaginationInput):CustomerPage
-}
+    #case
+    caseList:[Cases]
+
+}   
