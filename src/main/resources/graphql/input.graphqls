@@ -1,7 +1,7 @@
 input OrganizationInput {
   id: ID
   name: String
-  logo: String
+  base64Logo: String
   description: String
   address: String
 }
