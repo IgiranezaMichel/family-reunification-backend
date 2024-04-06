@@ -33,3 +33,24 @@ type Cases{
   customer:Customer
   role:Role
 }
+type Document{
+  id:ID
+  fileType:String
+  fileName:String
+  encodingName:String
+  file:String
+}
+type Lost{
+ id:ID
+ firstName:String
+ lastName:String
+ gender:String
+ address:String
+ phoneNumber:String
+ country:String
+ nativeCountry:String
+ dob:LocalDate
+ cases:Cases
+ description:String
+ document:[Document]
+}
