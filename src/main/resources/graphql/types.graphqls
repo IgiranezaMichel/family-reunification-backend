@@ -17,7 +17,7 @@ type Customer{
   gender:String
   email:String
   phoneNumber:String
-  dob:LocalDate
+  userDob:String
   address:String
   country:String
   nativeCountry:String
