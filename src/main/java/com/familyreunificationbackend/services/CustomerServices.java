@@ -53,7 +53,7 @@ public class CustomerServices {
     public CustomerPage customerPage(PaginationInput page) {
         Page<Customer> pagination = userRepository
                 .findAll(PageRequest.of(page.getPageNumber(), page.getPageSize(), Sort.by(page.getSort())));
-        return new CustomerPage(pagination.getNumber(), page.getPageSize(), pagination.getTotalElements(),
+        return new CustomerPage(pagination.getNumber(), pagination.getTotalPages(), pagination.getTotalElements(),
                 pagination.getContent());
     }
 }
