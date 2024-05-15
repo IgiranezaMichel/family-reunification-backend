@@ -1,9 +1,9 @@
 package com.familyreunificationbackend.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.List;
-
 import com.familyreunificationbackend.enums.Role;
 
 import jakarta.persistence.CascadeType;
@@ -47,6 +47,11 @@ public class Customer {
     @Column(unique = true)
     private String username;
     private String password;
+
+    public String getUserDob(){
+        DateTimeFormatter dtf=DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+        return dtf.format(dob);
+    }
     public String getProfilePicture(){
         return Base64.getEncoder().encodeToString(profilePicture);
     }
