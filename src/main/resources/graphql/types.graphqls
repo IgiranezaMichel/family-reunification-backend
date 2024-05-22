@@ -41,16 +41,21 @@ type Document{
   file:String
 }
 type Lost{
- id:ID
- firstName:String
- lastName:String
- gender:String
- address:String
- phoneNumber:String
- country:String
- nativeCountry:String
- dob:LocalDate
- cases:Cases
- description:String
+  id:ID
+  name:String
+  gender:String
+  address:String
+  phoneNumber:String
+  currentCountry:String
+  nativeCountry:String
+  base64Profile:String
+  dob:LocalDate
+  cases:Cases
+  countryOfLost:String
+  expectedAddress:String
+  relationShip:String
+  hasFound:Boolean
+  postedBy:Customer
+  description:String
  document:[Document]
 }
