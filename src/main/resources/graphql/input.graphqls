@@ -10,25 +10,43 @@ input PaginationInput {
   pageSize: Int
   sort: String
 }
-input CustomerInput{
-  id:Long
-  firstName:String
-  lastName:String
-  base64ProfilePicture:String
-  gender:String
-  email:String
-  phoneNumber:String
-  dob:LocalDate
-  address:String
-  country:String
-  nativeCountry:String
-  role:Role
-  username:String
-  password:String
+input CustomerInput {
+  id: Long
+  firstName: String
+  lastName: String
+  base64ProfilePicture: String
+  gender: String
+  email: String
+  phoneNumber: String
+  dob: LocalDate
+  address: String
+  country: String
+  nativeCountry: String
+  role: Role
+  username: String
+  password: String
 }
-input CaseInput{
-  id:Long
-  title:String
-  description:String
-  role:Role
+input CaseInput {
+  id: Long
+  title: String
+  description: String
+  role: Role
+}
+input LostDTO {
+  id: ID
+  name: String
+  gender: String
+  address: String
+  phoneNumber: String
+  currentCountry: String
+  nativeCountry: String
+  base64Profile: String
+  dob: String
+  countryOfLost: String
+  expectedAddress: String
+  relationShip: String
+  hasFound: Boolean
+  customerId: Long
+  caseId: Long
+  description: String
 }
