@@ -75,4 +75,6 @@ public class Customer {
     }
     @OneToMany(mappedBy = "customer",targetEntity=Cases.class,cascade =CascadeType.ALL )
     public List<Cases>caseList;
+    @OneToMany(mappedBy = "postedBy",targetEntity=Lost.class,cascade =CascadeType.ALL )
+    public List<Lost>lostList;
 }
