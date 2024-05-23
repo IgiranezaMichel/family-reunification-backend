@@ -2,6 +2,7 @@ package com.familyreunificationbackend.services;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.bytecode.enhance.spi.EnhancementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,7 +28,7 @@ public class OrganizationServices {
     }
 
     public Organization findOrganizationById(long id){
-        return organizationRepository.findById(id).orElseThrow();
+        return organizationRepository.findById(id).orElseThrow(()->new EnhancementException("Organization not found"));
     }
 
     public ResponseEntity<String> deleteOrganization(long id){
