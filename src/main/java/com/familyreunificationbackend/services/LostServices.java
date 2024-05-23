@@ -1,7 +1,9 @@
 package com.familyreunificationbackend.services;
 
 import java.util.Base64;
+import java.util.UUID;
 
+import org.hibernate.bytecode.enhance.spi.EnhancementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,7 @@ public class LostServices {
     private CaseServices caseServices;
     @Autowired
     private CustomerServices customerServices;
+
     public ResponseEntity<String> saveLost(LostDTO lostDTO) {
         try {
             Cases cases = caseServices.findCaseById(lostDTO.getCaseId());
@@ -36,6 +39,20 @@ public class LostServices {
             return new ResponseEntity<>(lost.getName() + " ", HttpStatusCode.valueOf(0));
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatusCode.valueOf(404));
+        }
+    }
+
+    public Lost findById(UUID id) {
+        return lostRepository.findById(id).orElseThrow(()->new EnhancementException("Lost not found"));
+    }
+
+    public ResponseEntity<String> deleteLost(UUID lostId) {
+        try {
+            Lost lost = this.findById(lostId);
+            lostRepository.delete(lost);
+            return new ResponseEntity<>(lost.getName() + " has removed successful", HttpStatusCode.valueOf(200));
+        } catch (Exception e) {
+            return new ResponseEntity<>("Lost not found", HttpStatusCode.valueOf(400));
         }
     }
 }
