@@ -8,4 +8,7 @@ type Mutation{
     #cases
     saveCases(caseInput:CaseInput,customerId:Long):String
     deleteCases(id:Long):String
+    # lost
+    saveLost(lost:LostDTO):String
+    deleteLost(id:ID):String
 }
