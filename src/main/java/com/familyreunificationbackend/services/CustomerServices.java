@@ -2,6 +2,7 @@ package com.familyreunificationbackend.services;
 
 import java.util.Base64;
 
+import org.hibernate.bytecode.enhance.spi.EnhancementException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -47,7 +48,7 @@ public class CustomerServices {
     }
 
     public Customer findCustomerById(long id) {
-        return userRepository.findById(id).orElseThrow();
+        return userRepository.findById(id).orElseThrow(() -> new EnhancementException("User not found"));
     }
 
     public ResponseEntity<String> deleteCustomer(long id) {
