@@ -53,7 +53,7 @@ public class Customer {
         return dtf.format(dob);
     }
     public String getProfilePicture(){
-        return Base64.getEncoder().encodeToString(profilePicture);
+        return "data:image/png;base64,"+Base64.getEncoder().encodeToString(profilePicture);
     }
     public Customer(long id,String firstName,String lastName,byte[] profilePicture, String gender,
    String email, String phoneNumber, LocalDate dob, String address, String country, String nativeCountry
