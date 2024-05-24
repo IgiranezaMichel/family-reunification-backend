@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.annotations.UuidGenerator.Style;
 
@@ -41,7 +42,9 @@ private boolean hasFound;
 private Customer postedBy;
 @Column(columnDefinition = "text")
 private String description;
-
+public String getProfile(){
+    return "data:image/png;base64,"+Base64.encodeBase64String(profile);
+}
 public Lost(UUID id, String name, String gender, String address, String phoneNumber, String currentCountry,
         String nativeCountry, byte[] profile, LocalDate dob, Cases cases, String countryOfLost, String expectedAddress,
         String relationShip, boolean hasFound, Customer postedBy, String description) {
