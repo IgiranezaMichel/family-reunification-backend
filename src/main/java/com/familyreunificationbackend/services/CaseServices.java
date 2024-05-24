@@ -3,15 +3,15 @@ package com.familyreunificationbackend.services;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.time.*;
+
+import org.hibernate.bytecode.enhance.spi.EnhancementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import com.familyreunificationbackend.model.Cases;
 import com.familyreunificationbackend.model.Customer;
 import com.familyreunificationbackend.repository.CasesRepository;
-
 @Service
 public class CaseServices {
     @Autowired private CasesRepository caseRepository;
@@ -34,7 +34,7 @@ public class CaseServices {
         }
     }
     public Cases findCaseById(long id){
-        return caseRepository.findById(id).orElseThrow();
+        return caseRepository.findById(id).orElseThrow(()->new EnhancementException("Please select case"));
     }
     public ResponseEntity<String> deleteCase(long id){
         try {

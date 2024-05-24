@@ -19,30 +19,35 @@ import com.familyreunificationbackend.repository.OrganizationRepository;
 
 @Service
 public class OrganizationServices {
-    @Autowired private OrganizationRepository organizationRepository;
+    @Autowired
+    private OrganizationRepository organizationRepository;
 
-    public ResponseEntity<String>saveOrUpdateOrganization(OrganizationInput data){
+    public ResponseEntity<String> saveOrUpdateOrganization(OrganizationInput data) {
         data.setTimeStamp(LocalDateTime.now());
-        Organization org=organizationRepository.save(new Organization(data.getId(), data.getName(), data.getBase64Logo(), data.getDescription(), data.getAddress()));
-        return new ResponseEntity<>(org.getName()+" organization saved successful",HttpStatus.OK);
+        Organization org = organizationRepository.save(new Organization(data.getId(), data.getName(),
+                data.getBase64Logo(), data.getDescription(), data.getAddress()));
+        return new ResponseEntity<>(org.getName() + " organization saved successful", HttpStatus.OK);
     }
 
-    public Organization findOrganizationById(long id){
-        return organizationRepository.findById(id).orElseThrow(()->new EnhancementException("Organization not found"));
+    public Organization findOrganizationById(long id) {
+        return organizationRepository.findById(id)
+                .orElseThrow(() -> new EnhancementException("Organization not found"));
     }
 
-    public ResponseEntity<String> deleteOrganization(long id){
+    public ResponseEntity<String> deleteOrganization(long id) {
         try {
-            Organization org=this.findOrganizationById(id);
+            Organization org = this.findOrganizationById(id);
             organizationRepository.delete(org);
-            return new ResponseEntity<>(org.getName()+" removed successful",HttpStatus.OK);
+            return new ResponseEntity<>(org.getName() + " removed successful", HttpStatus.OK);
         } catch (Exception e) {
-           return new ResponseEntity<>("Organization not found",HttpStatus.METHOD_NOT_ALLOWED);
-        } 
+            return new ResponseEntity<>("Organization not found", HttpStatus.METHOD_NOT_ALLOWED);
+        }
     }
 
-    public OrganizationPage organizationPage(PaginationInput page){
-        Page<Organization>pagination=organizationRepository.findAll(PageRequest.of(page.getPageNumber(),page.getPageSize(),Sort.by(page.getSort())));
-        return new OrganizationPage(pagination.getNumber(), page.getPageSize(), pagination.getTotalElements(), pagination.getContent());
+    public OrganizationPage organizationPage(PaginationInput page) {
+        Page<Organization> pagination = organizationRepository
+                .findAll(PageRequest.of(page.getPageNumber(), page.getPageSize(), Sort.by(page.getSort())));
+        return new OrganizationPage(pagination.getNumber(), page.getPageSize(), pagination.getTotalElements(),
+                pagination.getContent());
     }
 }
