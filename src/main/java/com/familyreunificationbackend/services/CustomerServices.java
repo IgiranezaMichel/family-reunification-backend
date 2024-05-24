@@ -25,26 +25,27 @@ public class CustomerServices {
     private CustomerRepository userRepository;
 
     public ResponseEntity<String> saveOrUpdateCustomer(CustomerInput userInput) {
-      try { 
-        if(!userInput.getBase64ProfilePicture().contains("base64,"))throw new Exception("Profile Picture is required");
-        String imgs=userInput.getBase64ProfilePicture().split("base64,")[1];
-        byte[] arr = Base64.getDecoder().decode(imgs);
-        Customer user = new Customer(userInput.getId(), userInput.getFirstName(), userInput.getLastName(), arr,
-                userInput.getGender(), userInput.getEmail(), userInput.getPhoneNumber(), userInput.getDob(),
-                userInput.getAddress(), userInput.getCountry(), userInput.getNativeCountry(), Role.USER,
-                userInput.getUsername(), userInput.getPassword());
-        Customer result = userRepository.save(user);
-        if (userInput.getId() != 0)
-            return new ResponseEntity<>("Hi " + result.getFirstName() + " Your Information has updated successful",
+        try {
+            if (!userInput.getBase64ProfilePicture().contains("base64,"))
+                throw new Exception("Profile Picture is required");
+            String imgs = userInput.getBase64ProfilePicture().split("base64,")[1];
+            byte[] arr = Base64.getDecoder().decode(imgs);
+            Customer user = new Customer(userInput.getId(), userInput.getFirstName(), userInput.getLastName(), arr,
+                    userInput.getGender(), userInput.getEmail(), userInput.getPhoneNumber(), userInput.getDob(),
+                    userInput.getAddress(), userInput.getCountry(), userInput.getNativeCountry(), Role.USER,
+                    userInput.getUsername(), userInput.getPassword());
+            Customer result = userRepository.save(user);
+            if (userInput.getId() != 0)
+                return new ResponseEntity<>("Hi " + result.getFirstName() + " Your Information has updated successful",
+                        HttpStatus.OK);
+            return new ResponseEntity<>("Hi " + result.getFirstName() + " Your Information has saved successful",
                     HttpStatus.OK);
-        return new ResponseEntity<>("Hi " + result.getFirstName() + " Your Information has saved successful",
-                HttpStatus.OK);}
-                catch(Exception exp){
-                    if(exp instanceof ConstraintViolationException){
-                        return new ResponseEntity<>("User Already exist",HttpStatus.METHOD_NOT_ALLOWED);
-                    }
-                    return new ResponseEntity<>("Incorrect information or Wrong Chosen Picture",HttpStatus.METHOD_NOT_ALLOWED);
-                }
+        } catch (Exception exp) {
+            if (exp instanceof ConstraintViolationException) {
+                return new ResponseEntity<>("User Already exist", HttpStatus.METHOD_NOT_ALLOWED);
+            }
+            return new ResponseEntity<>("Incorrect information or Wrong Chosen Picture", HttpStatus.METHOD_NOT_ALLOWED);
+        }
     }
 
     public Customer findCustomerById(long id) {
@@ -68,4 +69,3 @@ public class CustomerServices {
                 pagination.getContent());
     }
 }
-    
