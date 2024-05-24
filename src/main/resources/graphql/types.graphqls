@@ -1,61 +1,61 @@
 scalar LocalDateTime
 scalar LocalDate
 scalar Long
-type Organization{
-  id:ID
-  name:String
-  logo:String
-  description:String
-  address:String
-  timeStamp:String
+type Organization {
+  id: ID
+  name: String
+  logo: String
+  description: String
+  address: String
+  timeStamp: String
 }
-type Customer{
-  id:Long
-  firstName:String
-  lastName:String
-  profilePicture:ID
-  gender:String
-  email:String
-  phoneNumber:String
-  userDob:String
-  address:String
-  country:String
-  nativeCountry:String
-  role:Role
-  username:String
-  password:String
+type Customer {
+  id: Long
+  firstName: String
+  lastName: String
+  profilePicture: ID
+  gender: String
+  email: String
+  phoneNumber: String
+  userDob: String
+  address: String
+  country: String
+  nativeCountry: String
+  role: Role
+  username: String
+  password: String
 }
-type Cases{
-  id:Long
-  title:String
-  description:String
-  timeStamp:String
-  customer:Customer
-  role:Role
+type Cases {
+  id: Long
+  title: String
+  description: String
+  timeStamp: String
+  customer: Customer
+  role: Role
 }
-type Document{
-  id:ID
-  fileType:String
-  fileName:String
-  encodingName:String
-  file:String
+type Document {
+  id: ID
+  fileType: String
+  fileName: String
+  encodingName: String
+  file: String
 }
-type Lost{
-  id:ID
-  name:String
-  gender:String
-  address:String
-  phoneNumber:String
-  currentCountry:String
-  nativeCountry:String
-  profile:String
-  dob:LocalDate
-  cases:Cases
-  countryOfLost:String
-  expectedAddress:String
-  relationShip:String
-  hasFound:Boolean
-  postedBy:Customer
-  description:String
- document:[Document]
+type Lost {
+  id: ID
+  name: String
+  gender: String
+  address: String
+  phoneNumber: String
+  currentCountry: String
+  nativeCountry: String
+  profile: String
+  dob: LocalDate
+  cases: Cases
+  countryOfLost: String
+  expectedAddress: String
+  relationShip: String
+  hasFound: Boolean
+  postedBy: Customer
+  description: String
+  document: [Document]
 }
