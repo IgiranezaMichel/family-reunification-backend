@@ -12,40 +12,47 @@ import org.springframework.stereotype.Service;
 import com.familyreunificationbackend.model.Cases;
 import com.familyreunificationbackend.model.Customer;
 import com.familyreunificationbackend.repository.CasesRepository;
+
 @Service
 public class CaseServices {
-    @Autowired private CasesRepository caseRepository;
-    @Autowired private CustomerServices customerServices;
-    public ResponseEntity<String> saveOrUpdate(Cases cases,long customerId){
+    @Autowired
+    private CasesRepository caseRepository;
+    @Autowired
+    private CustomerServices customerServices;
+
+    public ResponseEntity<String> saveOrUpdate(Cases cases, long customerId) {
         try {
-        Customer user=customerServices.findCustomerById(customerId);
-        cases.setCustomer(user);
-        cases.setTimeStamp(LocalDateTime.now());
-        cases.setRole(user.getRole());
-        boolean isFound=caseRepository.existsByTitle(cases.getTitle());
-        if(isFound)throw new Exception("Case already exist");
-        Cases case1=caseRepository.save(cases);
-        return new ResponseEntity<String>(case1.getTitle()+" created successful",HttpStatus.OK);
+            Customer user = customerServices.findCustomerById(customerId);
+            cases.setCustomer(user);
+            cases.setTimeStamp(LocalDateTime.now());
+            cases.setRole(user.getRole());
+            boolean isFound = caseRepository.existsByTitle(cases.getTitle());
+            if (isFound)
+                throw new Exception("Case already exist");
+            Cases case1 = caseRepository.save(cases);
+            return new ResponseEntity<String>(case1.getTitle() + " created successful", HttpStatus.OK);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<>("User not found",HttpStatus.METHOD_NOT_ALLOWED);
-        }
-        catch(Exception e){
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.METHOD_NOT_ALLOWED);
+            return new ResponseEntity<>("User not found", HttpStatus.METHOD_NOT_ALLOWED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.METHOD_NOT_ALLOWED);
         }
     }
-    public Cases findCaseById(long id){
-        return caseRepository.findById(id).orElseThrow(()->new EnhancementException("Please select case"));
+
+    public Cases findCaseById(long id) {
+        return caseRepository.findById(id).orElseThrow(() -> new EnhancementException("Please select case"));
     }
-    public ResponseEntity<String> deleteCase(long id){
+
+    public ResponseEntity<String> deleteCase(long id) {
         try {
-            Cases cases=this.findCaseById(id);
+            Cases cases = this.findCaseById(id);
             caseRepository.delete(cases);
-            return new ResponseEntity<String>(cases.getTitle()+" deleted successful",HttpStatus.OK); 
-        } catch (Exception  e) {
-            return new ResponseEntity<String>(" case not found",HttpStatus.METHOD_NOT_ALLOWED);
+            return new ResponseEntity<String>(cases.getTitle() + " deleted successful", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<String>(" case not found", HttpStatus.METHOD_NOT_ALLOWED);
         }
     }
-    public List<Cases>caseList(){
+
+    public List<Cases> caseList() {
         return caseRepository.findAll();
     }
 }
