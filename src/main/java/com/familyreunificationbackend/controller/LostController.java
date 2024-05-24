@@ -27,4 +27,12 @@ public ResponseEntity<String>deleteLost(@Argument(name = "id")UUID lostId){
 public List<Lost>lostList(){
     return lostServices.findAll();
 }
+@QueryMapping
+public List<Lost>customerLostPosts(@Argument(name ="customerId" )long customerId){
+    return lostServices.getCustomerLostPosts(customerId);
+}
+@QueryMapping
+public  Lost findLostById(@Argument(name ="customerId" )UUID customerId){
+    return lostServices.findById(customerId);
+}
 }
