@@ -48,7 +48,7 @@ type Lost{
   phoneNumber:String
   currentCountry:String
   nativeCountry:String
-  base64Profile:String
+  profile:String
   dob:LocalDate
   cases:Cases
   countryOfLost:String
