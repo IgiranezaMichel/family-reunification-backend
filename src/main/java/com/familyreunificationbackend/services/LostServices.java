@@ -1,14 +1,13 @@
 package com.familyreunificationbackend.services;
 
 import java.util.Base64;
+import java.util.List;
 import java.util.UUID;
-
 import org.hibernate.bytecode.enhance.spi.EnhancementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import com.familyreunificationbackend.dto.LostDTO;
 import com.familyreunificationbackend.model.Cases;
 import com.familyreunificationbackend.model.Customer;
@@ -43,7 +42,7 @@ public class LostServices {
     }
 
     public Lost findById(UUID id) {
-        return lostRepository.findById(id).orElseThrow(()->new EnhancementException("Lost not found"));
+        return lostRepository.findById(id).orElseThrow(() -> new EnhancementException("Lost not found"));
     }
 
     public ResponseEntity<String> deleteLost(UUID lostId) {
@@ -54,5 +53,9 @@ public class LostServices {
         } catch (Exception e) {
             return new ResponseEntity<>("Lost not found", HttpStatusCode.valueOf(400));
         }
+    }
+
+    public List<Lost> findAll() {
+        return lostRepository.findAll();
     }
 }
