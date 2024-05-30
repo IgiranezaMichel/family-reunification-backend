@@ -7,6 +7,7 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
+import com.familyreunificationbackend.dto.ChangePasswordDTO;
 import com.familyreunificationbackend.input.CustomerInput;
 import com.familyreunificationbackend.model.pagination.CustomerPage;
 import com.familyreunificationbackend.model.paginationDefinition.PaginationInput;
@@ -26,7 +27,9 @@ public class CustomerController {
     public ResponseEntity<String> deleteCustomer(@Argument(name = "id") long id) {
         return userServices.deleteCustomer(id);
     }
-
+    public ResponseEntity<String>changeCustomerPassword(@Argument(name = "changePasswordInput")ChangePasswordDTO changePassword){
+        return userServices.changeCustomerPassword(changePassword);
+    }
     @QueryMapping()
     public CustomerPage customerPage(@Argument(name = "customerPage") PaginationInput paginationInput) {
         return userServices.customerPage(paginationInput);
