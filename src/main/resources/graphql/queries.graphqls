@@ -7,4 +7,7 @@ type Query{
     caseList:[Cases]
     #lost
     lostList:[Lost]
+    customerLostPosts(customerId:ID):[Lost]
+    findLostById(customerId:ID):Lost
+    lostPageable(input:LostPageInput):LostPageDTO
 }   
