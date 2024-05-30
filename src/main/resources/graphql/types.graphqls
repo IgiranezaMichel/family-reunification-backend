@@ -58,4 +58,12 @@ type Lost {
   postedBy: Customer
   description: String
   document: [Document]
+  timeStamp:String
+  lostComments:[Comment]
+}
+type Comment {
+  id:ID
+  comment:String
+  lost:Lost
+  customer:Customer
 }
