@@ -42,4 +42,9 @@ public  Lost findLostById(@Argument(name ="customerId" )UUID customerId){
 public LostPageDTO<Lost> lostPageable(@Argument(name = "input")LostPageInput lostPageInput){
     return lostServices.lostPageable(lostPageInput);
 }
+// customer
+@QueryMapping
+public List<Lost> customerLostFounds(@Argument(name = "username")String username,@Argument(name = "sort")String sort,@Argument(name = "hasFound")boolean hasFound){
+    return lostServices.customerLostFoundList(username,sort,hasFound);
+}
 }
