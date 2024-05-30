@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.familyreunificationbackend.dto.ChangePasswordDTO;
 import com.familyreunificationbackend.enums.Role;
 import com.familyreunificationbackend.input.CustomerInput;
 import com.familyreunificationbackend.model.Customer;
@@ -51,7 +52,9 @@ public class CustomerServices {
     public Customer findCustomerById(long id) {
         return userRepository.findById(id).orElseThrow(() -> new EnhancementException("User not found"));
     }
-
+    public Customer findByUsername(String username){
+        return userRepository.findByUsername(username);
+    }
     public ResponseEntity<String> deleteCustomer(long id) {
         try {
             Customer user = this.findCustomerById(id);
@@ -67,5 +70,15 @@ public class CustomerServices {
                 .findAll(PageRequest.of(page.getPageNumber(), page.getPageSize(), Sort.by(page.getSort())));
         return new CustomerPage(pagination.getNumber(), pagination.getTotalPages(), pagination.getTotalElements(),
                 pagination.getContent());
+    }
+
+    public ResponseEntity<String> changeCustomerPassword(ChangePasswordDTO changePassword) {
+        try {
+            Customer customer=this.findByUsername(changePassword.getUsername());
+            customer.setPassword(changePassword.getNewPassword());
+            return new ResponseEntity<>(customer.getFirstName()+" "+customer.getLastName()+" password changed successful",HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.METHOD_NOT_ALLOWED);
+        }
     }
 }
