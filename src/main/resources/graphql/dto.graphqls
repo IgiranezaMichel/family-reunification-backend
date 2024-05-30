@@ -1,0 +1,6 @@
+type LostPageDTO{
+  pageNumber:Int
+  totalPage:Int
+  total:Int
+  content:[Lost]
+}
