@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import java.util.List;
 import com.familyreunificationbackend.dto.LostDTO;
+import com.familyreunificationbackend.dto.LostPageDTO;
+import com.familyreunificationbackend.dto.LostPageInput;
 import com.familyreunificationbackend.model.Lost;
 import com.familyreunificationbackend.services.LostServices;
 @Controller
@@ -34,5 +36,10 @@ public List<Lost>customerLostPosts(@Argument(name ="customerId" )long customerId
 @QueryMapping
 public  Lost findLostById(@Argument(name ="customerId" )UUID customerId){
     return lostServices.findById(customerId);
+}
+// admin
+@QueryMapping
+public LostPageDTO<Lost> lostPageable(@Argument(name = "input")LostPageInput lostPageInput){
+    return lostServices.lostPageable(lostPageInput);
 }
 }
