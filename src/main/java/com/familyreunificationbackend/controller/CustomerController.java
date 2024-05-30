@@ -27,7 +27,8 @@ public class CustomerController {
     public ResponseEntity<String> deleteCustomer(@Argument(name = "id") long id) {
         return userServices.deleteCustomer(id);
     }
-    public ResponseEntity<String>changeCustomerPassword(@Argument(name = "changePasswordInput")ChangePasswordDTO changePassword){
+    @MutationMapping()
+    public ResponseEntity<String>changeCustomerPassword(@Argument(name = "customerInput")ChangePasswordDTO changePassword){
         return userServices.changeCustomerPassword(changePassword);
     }
     @QueryMapping()
