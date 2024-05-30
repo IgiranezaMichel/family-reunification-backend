@@ -50,3 +50,23 @@ input LostDTO {
   caseId: Long
   description: String
 }
+input LostPageInput {
+  hasFound: Boolean
+  country: String
+  fromDate: LocalDate
+  toDate: LocalDate
+  pageNumber: Int
+  pageSize: Int
+  sort: String
+}
+input CommentInput {
+  lostId: ID
+  customerId: Long
+  comment:String
+}
+input ChangePasswordDTO{
+username:String
+oldPassword:String
+newPassword:String
+retypePassword:String
+}
