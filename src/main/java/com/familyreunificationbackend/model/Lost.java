@@ -1,6 +1,8 @@
 package com.familyreunificationbackend.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,8 +42,13 @@ private String relationShip;
 private boolean hasFound;
 @ManyToOne(cascade = CascadeType.ALL,targetEntity = Customer.class)
 private Customer postedBy;
+private LocalDateTime timeStamp;
 @Column(columnDefinition = "text")
 private String description;
+public String getTimeStamp(){
+DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd-MMMM-yyyy HH:MM a");
+return dateTimeFormatter.format(timeStamp);
+}
 public String getProfile(){
     return "data:image/png;base64,"+Base64.encodeBase64String(profile);
 }
@@ -64,7 +71,10 @@ public Lost(UUID id, String name, String gender, String address, String phoneNum
     this.hasFound = hasFound;
     this.postedBy = postedBy;
     this.description = description;
+    this.timeStamp=LocalDateTime.now();
 }
 @OneToMany(cascade=CascadeType.ALL, targetEntity=Document.class)
 private List<Document> document;
+@OneToMany(cascade=CascadeType.ALL, targetEntity=Comment.class,mappedBy = "lost")
+private List<Comment>lostComments;
 }
