@@ -1,14 +1,18 @@
-type Mutation{
-    # organization
-    saveOrganization(organizationInput:OrganizationInput):String
-    removeOrganization(id:Long):String
-    # customer
-    saveCustomer(customerInput:CustomerInput):String
-    deleteCustomer(id:Long):String
-    #cases
-    saveCases(caseInput:CaseInput,customerId:Long):String
-    deleteCases(id:Long):String
-    # lost
-    saveLost(lost:LostDTO):String
-    deleteLost(id:ID):String
+type Mutation {
+  # organization
+  saveOrganization(organizationInput: OrganizationInput): String
+  removeOrganization(id: Long): String
+  # customer
+  saveCustomer(customerInput: CustomerInput): String
+  deleteCustomer(id: Long): String
+  changeCustomerPassword(changePasswordInput: ChangePasswordDTO): String
+  #cases
+  saveCases(caseInput: CaseInput, customerId: Long): String
+  deleteCases(id: Long): String
+  # lost
+  saveLost(lost: LostDTO): String
+  deleteLost(id: ID): String
+  # comment
+  saveComment(input: CommentInput): String
+  deleteComment(comment: ID): String
 }
