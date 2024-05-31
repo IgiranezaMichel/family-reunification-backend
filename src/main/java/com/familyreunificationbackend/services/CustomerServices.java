@@ -76,6 +76,7 @@ public class CustomerServices {
         try {
             Customer customer=this.findByUsername(changePassword.getUsername());
             customer.setPassword(changePassword.getNewPassword());
+            userRepository.save(customer);
             return new ResponseEntity<>(customer.getFirstName()+" "+customer.getLastName()+" password changed successful",HttpStatus.ACCEPTED);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.METHOD_NOT_ALLOWED);
