@@ -62,11 +62,11 @@ input LostPageInput {
 input CommentInput {
   lostId: ID
   customerId: Long
-  comment:String
+  comment: String
 }
-input ChangePasswordDTO{
-username:String
-oldPassword:String
-newPassword:String
-retypePassword:String
+input ChangePasswordDTO {
+  username: String
+  oldPassword: String
+  newPassword: String
+  retypePassword: String
 }
