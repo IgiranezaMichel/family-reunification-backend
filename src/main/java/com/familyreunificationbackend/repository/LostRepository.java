@@ -19,5 +19,7 @@ public interface LostRepository extends JpaRepository<Lost,UUID>{
     @Query("Select l from Lost l where l.hasFound=:hasFound and CAST(l.timeStamp AS DATE)>=:fromDate and cast(l.timeStamp AS DATE)<=:toDate or l.countryOfLost=:countryOfLost")
     Page<Lost> findAllByLostFilter(boolean hasFound, String countryOfLost,LocalDate fromDate,LocalDate toDate, PageRequest page);
     List<Lost> findAllByPostedByAndHasFound(Customer customer, boolean hasFound, Sort by);
+    Page<Lost> findAllByHasFound(boolean hasFound, PageRequest of);
+    Page<Lost> findAllByHasFoundAndNativeCountry(boolean hasFound, String location, PageRequest of);
 
 }
