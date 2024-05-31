@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 import org.hibernate.bytecode.enhance.spi.EnhancementException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatusCode;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.familyreunificationbackend.dto.LostDTO;
 import com.familyreunificationbackend.dto.LostPageDTO;
 import com.familyreunificationbackend.dto.LostPageInput;
+import com.familyreunificationbackend.input.PaginationInput;
 import com.familyreunificationbackend.model.Cases;
 import com.familyreunificationbackend.model.Customer;
 import com.familyreunificationbackend.model.Lost;
@@ -75,5 +77,17 @@ public class LostServices {
         if(input.getFromDate().isAfter(input.getToDate()))input.setToDate(LocalDate.now());
         var paginationResult=lostRepository.findAllByLostFilter(input.getHasFound(),input.getCountry(),input.getFromDate(),input.getToDate(),page);
         return new  LostPageDTO<>(paginationResult.getNumber(), paginationResult.getTotalPages(), paginationResult.getTotalElements(), paginationResult.getContent());
+    }
+
+    public List<Lost> customerLostFoundList(String username, String sort,boolean hasFound) {
+        Customer customer=customerServices.findByUsername(username);
+        return lostRepository.findAllByPostedByAndHasFound(customer,hasFound,Sort.by(sort));
+    }
+
+    public LostPageDTO<Lost> lostPageableDefault(PaginationInput page, boolean hasFound, String location) {
+        Page<Lost> lostPage=null;
+        if(location!=null) {lostPage= lostRepository.findAllByHasFoundAndNativeCountry(hasFound,location,PageRequest.of(page.getPageNumber(), page.getPageSize(),Sort.by(page.getSort())));}
+        else{lostPage= lostRepository.findAllByHasFound(hasFound,PageRequest.of(page.getPageNumber(), page.getPageSize(),Sort.by(page.getSort())));}
+        return new  LostPageDTO<>(lostPage.getNumber(), lostPage.getTotalPages(), lostPage.getTotalElements(), lostPage.getContent());
     }
 }
