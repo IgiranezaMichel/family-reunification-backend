@@ -3,6 +3,7 @@ type Query{
     organizationPage(organizationPageInput:PaginationInput):OrganizationPage
     # Customer
     customerPage(customerPage:PaginationInput):CustomerPage
+    customerLostFounds(username:String,sort:String,hasFound:Boolean):[Lost]
     #case
     caseList:[Cases]
     #lost
@@ -10,4 +11,5 @@ type Query{
     customerLostPosts(customerId:ID):[Lost]
     findLostById(customerId:ID):Lost
     lostPageable(input:LostPageInput):LostPageDTO
-}   
+    lostPageableIndex(pageInput:PaginationInput,hasFound:Boolean,location:String):LostPageDTO
+}
