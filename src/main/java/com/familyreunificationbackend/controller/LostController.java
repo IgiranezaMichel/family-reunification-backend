@@ -12,6 +12,7 @@ import java.util.List;
 import com.familyreunificationbackend.dto.LostDTO;
 import com.familyreunificationbackend.dto.LostPageDTO;
 import com.familyreunificationbackend.dto.LostPageInput;
+import com.familyreunificationbackend.input.PaginationInput;
 import com.familyreunificationbackend.model.Lost;
 import com.familyreunificationbackend.services.LostServices;
 @Controller
@@ -42,9 +43,14 @@ public  Lost findLostById(@Argument(name ="customerId" )UUID customerId){
 public LostPageDTO<Lost> lostPageable(@Argument(name = "input")LostPageInput lostPageInput){
     return lostServices.lostPageable(lostPageInput);
 }
+@QueryMapping
+public LostPageDTO<Lost> lostPageableIndex(@Argument(name = "pageInput")PaginationInput page,@Argument(name = "hasFound")boolean hasFound,@Argument(name = "location")String location){
+    return lostServices.lostPageableDefault(page,hasFound,location);
+}
 // customer
 @QueryMapping
 public List<Lost> customerLostFounds(@Argument(name = "username")String username,@Argument(name = "sort")String sort,@Argument(name = "hasFound")boolean hasFound){
     return lostServices.customerLostFoundList(username,sort,hasFound);
 }
+
 }
