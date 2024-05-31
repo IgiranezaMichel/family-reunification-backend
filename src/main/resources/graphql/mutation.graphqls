@@ -5,7 +5,7 @@ type Mutation {
   # customer
   saveCustomer(customerInput: CustomerInput): String
   deleteCustomer(id: Long): String
-  changeCustomerPassword(changePasswordInput: ChangePasswordDTO): String
+   changeCustomerPassword(customerInput:ChangePasswordDTO):String
   #cases
   saveCases(caseInput: CaseInput, customerId: Long): String
   deleteCases(id: Long): String
