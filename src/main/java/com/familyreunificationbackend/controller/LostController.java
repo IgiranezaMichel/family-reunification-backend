@@ -24,7 +24,10 @@ public class LostController {
     public ResponseEntity<String> saveLost(@Argument(name = "lost") LostDTO lostDTO) {
         return lostServices.saveLost(lostDTO);
     }
-
+    @MutationMapping
+    public ResponseEntity<String> claimFound(@Argument(name = "lostId") UUID lostId,@Argument(name = "hasFound")boolean hasFound) {
+        return lostServices.claimFound(lostId,hasFound);
+    }
     @MutationMapping
     public ResponseEntity<String> deleteLost(@Argument(name = "id") UUID lostId) {
         return lostServices.deleteLost(lostId);
@@ -36,8 +39,8 @@ public class LostController {
     }
 
     @QueryMapping
-    public List<Lost> customerLostPosts(@Argument(name = "customerId") long customerId) {
-        return lostServices.getCustomerLostPosts(customerId);
+    public List<Lost> customerLostPosts(@Argument(name = "customerId") long customerId,@Argument(name = "hasFound")boolean hasFound) {
+        return lostServices.getCustomerLostPosts(customerId,hasFound);
     }
 
     @QueryMapping
@@ -74,4 +77,9 @@ public class LostController {
     }
     @QueryMapping
     public long totalLost(){return lostServices.totalLost();}
+    @QueryMapping
+    public List<Lost> lostReportList(@Argument(name = "getAll") boolean getAll,@Argument(name = "hasFound")boolean hasFound) {
+        return lostServices.lostReportList(getAll,hasFound);
+    }
+    
 }
