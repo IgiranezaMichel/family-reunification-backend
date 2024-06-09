@@ -2,7 +2,6 @@ package com.familyreunificationbackend.controller;
 
 import java.security.Principal;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,20 +31,32 @@ public class ChatRoomController {
         log.info("Principal {}", principal.getName());
         return chatMessage;
     }
-
+    
     @GetMapping ("/chat/find-chatroom")
     public ResponseEntity<ChatRoomDTO> checkChatRoomExistence(@RequestParam String receiverId, Principal principal) {
         ChatRoom chatRoom = chatRoomServices.createChatRoom(new ChatRoomRBI(null, principal.getName(), receiverId));
+        try {
         ChatRoomDTO chatRoomDTO = new ChatRoomDTO(chatRoom.getId(), chatRoom.getChatInitiator().getUsername(),
                 chatRoom.getChatInitiator().getFirstName() + " " + chatRoom.getChatInitiator().getLastName(),
-                chatRoom.getChatInitiator().getProfilePicture(), chatRoom.getChatSubscriber().getUsername(),
+                chatRoom.getChatInitiator().getProfilePicture(), 
+                chatRoom.getChatSubscriber().getUsername(),
                 chatRoom.getChatSubscriber().getProfilePicture(),
                 chatRoom.getChatSubscriber().getFirstName() + " " + chatRoom.getChatSubscriber().getLastName());
         return new ResponseEntity<>(chatRoomDTO, HttpStatus.OK);
+       } catch (Exception e) {
+        log.info("Exception {}",e.getMessage());
+        return new ResponseEntity<>( new ChatRoomDTO(chatRoom.getId(), chatRoom.getChatInitiator().getUsername(),
+       
+        chatRoom.getChatInitiator().getFirstName() + " " + chatRoom.getChatInitiator().getLastName(),
+        chatRoom.getChatInitiator().getProfilePicture(), 
+        chatRoom.getChatSubscriber().getUsername(),
+        chatRoom.getChatSubscriber().getProfilePicture(),
+        chatRoom.getChatSubscriber().getFirstName()), HttpStatus.OK);
+       }
     }
 
     @GetMapping(value = "/chat/chatroom")
-    public ResponseEntity<List<ChatRoomDTO>> chatRoomList(Principal principal) {
-        return new ResponseEntity<>(chatRoomServices.getAllUserChatRooms(principal.getName()), HttpStatus.OK);
+    public ResponseEntity<List<ChatRoomDTO>> chatRoomList(@RequestParam String search,Principal principal) {
+        return new ResponseEntity<>(chatRoomServices.getAllUserChatRooms(principal.getName(),search), HttpStatus.OK);
     }
 }
