@@ -6,13 +6,19 @@ type Mutation {
   saveCustomer(customerInput: CustomerInput): String
   deleteCustomer(id: Long): String
    changeCustomerPassword(customerInput:ChangePasswordDTO):String
+   changeCustomerRole(customerId:Long, role:Role):String
   #cases
-  saveCases(caseInput: CaseInput, customerId: Long): String
+  saveCases(caseInput: CaseInput): String
   deleteCases(id: Long): String
   # lost
   saveLost(lost: LostDTO): String
   deleteLost(id: ID): String
+  claimFound(lostId:ID,hasFound:Boolean):String
   # comment
   saveComment(input: CommentInput): String
   deleteComment(comment: ID): String
+  #Beneficiary
+  createBeneficiary(beneficiaryInput:BeneficiaryInput):String
+  updateBeneficiary(beneficiaryId:ID,reunify:Reunify,comment:String):String
+  assignBeneficiaryOrganization(beneficiaryId:ID,reunify:Reunify,organizationId:Long):String
 }

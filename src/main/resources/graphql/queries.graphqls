@@ -1,15 +1,29 @@
 type Query{
     # organization
     organizationPage(organizationPageInput:PaginationInput):OrganizationPage
+    organizationList:[Organization]
     # Customer
     customerPage(customerPage:PaginationInput):CustomerPage
     customerLostFounds(username:String,sort:String,hasFound:Boolean):[Lost]
+    getCustomerLostPosts(customerId:ID,hasFound:Boolean):[Lost]
     #case
     caseList:[Cases]
+    totalCases:Int
+    totalResolvedCases:Int
+    totalPendingCases:Int
+    getNumberOfCasesPerCaseCategory:[ChartDTO]
     #lost
     lostList:[Lost]
     customerLostPosts(customerId:ID):[Lost]
     findLostById(customerId:ID):Lost
     lostPageable(input:LostPageInput):LostPageDTO
     lostPageableIndex(pageInput:PaginationInput,hasFound:Boolean,location:String):LostPageDTO
+    searchLost(search:String):[Lost]
+    totalCustomerPostByHasFound(customerUsername:String,hasFound:Boolean):Int
+    totalLost:Int
+    lostReportList(getAll:Boolean,hasFound:Boolean):[Lost]
+    #Beneficiary
+    getBeneficiaryListByCustomer(customerUsername:String):[Beneficiary]
+    getBeneficiariesByReunify(reunify:Reunify):[Beneficiary]
+    getBeneficiaryByOrganizationAndReunification(organizationId:Long,reunify:Reunify):[Beneficiary]
 }

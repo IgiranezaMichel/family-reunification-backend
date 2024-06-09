@@ -4,6 +4,7 @@ input OrganizationInput {
   base64Logo: String
   description: String
   address: String
+  customerUserName:String 
 }
 input PaginationInput {
   pageNumber: Int
@@ -69,4 +70,16 @@ input ChangePasswordDTO {
   oldPassword: String
   newPassword: String
   retypePassword: String
+}
+input BeneficiaryInput{
+ id:ID
+ reunification:Reunify
+ lostId:String
+ organizationId:Long
+ description:String
+ countryFound:String
+ adress:String
+ countryOfDestination:String
+ destinationAddress:String
+ comment:String
 }

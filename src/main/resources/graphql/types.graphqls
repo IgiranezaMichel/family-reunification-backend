@@ -67,3 +67,19 @@ type Comment {
   lost:Lost
   customer:Customer
 }
+type ChartDTO {
+  total:Long
+  title:String
+}
+type Beneficiary {
+ id:ID
+ reunification:Reunify
+ lost:Lost
+ organization:Organization
+ description:String
+ countryFound:String
+ adress:String
+ countryOfDestination:String
+ destinationAddress:String
+ comment:String
+}
