@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -15,28 +16,34 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfiguration {
     @Autowired
     private UserDetailsService userDetailsService;
-
+    @Autowired
+    private CustomLogoutHandler customLogoutHandler;
     @Bean
     public SecurityFilterChain securityFilter(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/", "/login","/search","/graphqil","/graphql").permitAll();
+                    auth.requestMatchers("/", "/login","/search","/graphqil","/graphql","/logout").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .formLogin(login -> {
                     login.loginPage("/login").permitAll();
                     login.defaultSuccessUrl("/success-login");
                 })
-                // .sessionManagement(ses -> {
-                //     ses.maximumSessions(1);
-                //     ses.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-                //     ses.sessionFixation((sessionFixation) -> sessionFixation
-                //             .newSession());
-                // })
+                .sessionManagement(ses -> {
+                    ses.maximumSessions(1);
+                    ses.sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
+                    ses.sessionFixation((sessionFixation) -> sessionFixation
+                            .newSession());
+                })
                 .logout((logout) -> {
                     logout.logoutUrl("/logout");
+                    logout.addLogoutHandler(customLogoutHandler);
+                    logout.logoutSuccessUrl("/login?logout");
+                    logout.invalidateHttpSession(true);
+                    logout.clearAuthentication(true);
                     logout.deleteCookies("JSESSIONID");
+                    logout.permitAll();
                 })
                 .formLogin(login -> {
                     login.loginPage("/login").permitAll();
