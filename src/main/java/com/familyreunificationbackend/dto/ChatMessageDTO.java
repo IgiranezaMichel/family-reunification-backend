@@ -1,4 +1,5 @@
 package com.familyreunificationbackend.dto;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -15,4 +16,8 @@ private String senderUsername;
 private String receiverUsername;
 private Date timestamp;
 private UUID chatRoomId;
+public String getTimestamp(){
+    SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd-MMMM-yyy HH:mm a");
+    return simpleDateFormat.format(timestamp);
+}
 }
