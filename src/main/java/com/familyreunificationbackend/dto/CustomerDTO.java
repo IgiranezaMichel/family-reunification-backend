@@ -21,4 +21,6 @@ public class CustomerDTO {
     private String nativeCountry;
     private Role role;
     private String username;
+    private long organizationId;
+    private String organizationName;
 }
