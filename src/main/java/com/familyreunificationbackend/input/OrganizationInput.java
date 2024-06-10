@@ -8,4 +8,6 @@ import lombok.Setter;
 public class OrganizationInput extends Organization{
 @Getter @Setter
     private String base64Logo;
+    @Getter @Setter
+    private String customerUserName;
 }
