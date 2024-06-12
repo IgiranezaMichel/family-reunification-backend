@@ -45,6 +45,28 @@ private Customer postedBy;
 private LocalDateTime timeStamp;
 @Column(columnDefinition = "text")
 private String description;
+
+public Lost(String name, String gender, String address, String phoneNumber, String currentCountry, String nativeCountry,
+        byte[] profile, LocalDate dob, Cases cases, String countryOfLost, String expectedAddress, String relationShip,
+        boolean hasFound, Customer postedBy, LocalDateTime timeStamp, String description) {
+    this.name = name;
+    this.gender = gender;
+    this.address = address;
+    this.phoneNumber = phoneNumber;
+    this.currentCountry = currentCountry;
+    this.nativeCountry = nativeCountry;
+    this.profile = profile;
+    this.dob = dob;
+    this.cases = cases;
+    this.countryOfLost = countryOfLost;
+    this.expectedAddress = expectedAddress;
+    this.relationShip = relationShip;
+    this.hasFound = hasFound;
+    this.postedBy = postedBy;
+    this.timeStamp = timeStamp;
+    this.description = description;
+}
+
 public String getTimeStamp(){
 DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd-MMMM-yyyy HH:MM a");
 return dateTimeFormatter.format(timeStamp);
@@ -77,4 +99,7 @@ public Lost(UUID id, String name, String gender, String address, String phoneNum
 private List<Document> document;
 @OneToMany(cascade=CascadeType.ALL, targetEntity=Comment.class,mappedBy = "lost")
 private List<Comment>lostComments;
+@OneToMany(cascade=CascadeType.ALL, targetEntity=Beneficiary.class,mappedBy = "lost")
+private List<Beneficiary>beneficiaryList;
+
 }
