@@ -47,7 +47,8 @@ public class Customer {
     @Column(unique = true)
     private String username;
     private String password;
-
+    @OneToMany(targetEntity = Organization.class,mappedBy = "customer")
+    private List<Organization> organization;
     public String getUserDob(){
         DateTimeFormatter dtf=DateTimeFormatter.ofPattern("dd-MMM-yyyy");
         return dtf.format(dob);
