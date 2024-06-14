@@ -9,23 +9,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import com.familyreunificationbackend.dto.ChartDTO;
 import com.familyreunificationbackend.model.Cases;
-import com.familyreunificationbackend.model.Customer;
 import com.familyreunificationbackend.repository.CasesRepository;
+import com.familyreunificationbackend.repository.LostRepository;
 
 @Service
 public class CaseServices {
     @Autowired
     private CasesRepository caseRepository;
     @Autowired
-    private CustomerServices customerServices;
+    private LostRepository lostRepository;
 
-    public ResponseEntity<String> saveOrUpdate(Cases cases, long customerId) {
+    public ResponseEntity<String> saveOrUpdate(Cases cases) {
         try {
-            Customer user = customerServices.findCustomerById(customerId);
-            cases.setCustomer(user);
             cases.setTimeStamp(LocalDateTime.now());
-            cases.setRole(user.getRole());
             boolean isFound = caseRepository.existsByTitle(cases.getTitle());
             if (isFound)
                 throw new Exception("Case already exist");
@@ -54,5 +53,21 @@ public class CaseServices {
 
     public List<Cases> caseList() {
         return caseRepository.findAll();
+    }
+
+    public long totalCases() {
+        return caseRepository.count();
+    }
+
+    public long totalResolvedCases() {
+        return lostRepository.countByHasFound(true);
+    }
+
+    public long totalPendingCases() {
+        return lostRepository.countByHasFound(false);
+    }
+
+    public List<ChartDTO> getNumberOfCasesPerCaseCategory() {
+        return caseRepository.getNumberOfCasesPerCaseCategory();
     }
 }
