@@ -1,6 +1,7 @@
 package com.familyreunificationbackend.services;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,10 @@ import com.familyreunificationbackend.model.Customer;
 import com.familyreunificationbackend.model.Lost;
 import com.familyreunificationbackend.repository.LostRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class LostServices {
     @Autowired
     private LostRepository lostRepository;
@@ -37,13 +42,14 @@ public class LostServices {
             if (!lostDTO.getBase64Profile().contains("base64,"))
                 throw new Exception("Profile Picture is required");
             byte[] arr = Base64.getDecoder().decode(lostDTO.getBase64Profile().split("base64,")[1]);
-            Lost lost = lostRepository
-                    .save(new Lost(lostDTO.getId(), lostDTO.getName(), lostDTO.getGender(), lostDTO.getAddress(),
+            Lost lost= lostRepository
+                    .save(new Lost(lostDTO.getName(), lostDTO.getGender(), lostDTO.getAddress(),
                             lostDTO.getPhoneNumber(), lostDTO.getCurrentCountry(), lostDTO.getNativeCountry(), arr,
                             lostDTO.getDob(), cases, lostDTO.getCountryOfLost(), lostDTO.getExpectedAddress(),
-                            lostDTO.getRelationShip(), false, customer, lostDTO.getDescription()));
-            return new ResponseEntity<>(lost.getName() + " ", HttpStatusCode.valueOf(0));
+                            lostDTO.getRelationShip(), false, customer,LocalDateTime.now(), lostDTO.getDescription()));
+            return new ResponseEntity<>("Hi ,"+lost.getName() + " claim has added successful", HttpStatusCode.valueOf(200));
         } catch (Exception e) {
+            log.info("save lost {}",e);
             return new ResponseEntity<>(e.getMessage(), HttpStatusCode.valueOf(404));
         }
     }
@@ -89,5 +95,36 @@ public class LostServices {
         if(location!=null) {lostPage= lostRepository.findAllByHasFoundAndNativeCountry(hasFound,location,PageRequest.of(page.getPageNumber(), page.getPageSize(),Sort.by(page.getSort())));}
         else{lostPage= lostRepository.findAllByHasFound(hasFound,PageRequest.of(page.getPageNumber(), page.getPageSize(),Sort.by(page.getSort())));}
         return new  LostPageDTO<>(lostPage.getNumber(), lostPage.getTotalPages(), lostPage.getTotalElements(), lostPage.getContent());
+    }
+    public List<Lost>searchLost(String search){
+        if(search.equals(null)||search.equals(""))
+        return lostRepository.findAllByHasFound(false);
+        return lostRepository.findAllByNameContainingAndHasFound(search,false);
+    }
+    public long totalLost(){
+        return lostRepository.countByHasFound(false);
+    }
+    public long totalCustomerPostByHasFound(String customerUsername,boolean hasFound){
+        Customer customer=customerServices.findByUsername(customerUsername);
+        return lostRepository.countByPostedByAndHasFound(customer,hasFound);
+    }
+    public List<Lost>lostReportList(boolean getAll,boolean hasFound){
+        if(getAll){
+            return lostRepository.findAll();
+        }
+        return lostRepository.findAllByHasFound(hasFound);
+    }
+
+    public ResponseEntity<String> claimFound(UUID lostId, boolean hasFound) {
+        Lost lost=this.findById(lostId);
+        lost.setHasFound(hasFound);
+        lost.setTimeStamp(LocalDateTime.now());
+        Lost lost1=lostRepository.save(lost);
+        return new ResponseEntity<>(lost1.getName()+" status has saved successful",HttpStatus.OK);
+    }
+
+    public List<Lost> getCustomerLostPosts(long customerId, boolean hasFound) {
+        Customer customer=customerServices.findCustomerById(customerId);
+     return lostRepository.findAllByPostedByAndHasFound(customer,hasFound);
     }
 }
