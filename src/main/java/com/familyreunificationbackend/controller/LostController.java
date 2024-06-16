@@ -17,40 +17,61 @@ import com.familyreunificationbackend.model.Lost;
 import com.familyreunificationbackend.services.LostServices;
 @Controller
 public class LostController {
-@Autowired private LostServices lostServices;
-@MutationMapping
-public ResponseEntity<String>saveLost(@Argument(name = "lost") LostDTO lostDTO){
-    return lostServices.saveLost(lostDTO);
-}
-@MutationMapping
-public ResponseEntity<String>deleteLost(@Argument(name = "id")UUID lostId){
-    return lostServices.deleteLost(lostId);
-}
-@QueryMapping
-public List<Lost>lostList(){
-    return lostServices.findAll();
-}
-@QueryMapping
-public List<Lost>customerLostPosts(@Argument(name ="customerId" )long customerId){
-    return lostServices.getCustomerLostPosts(customerId);
-}
-@QueryMapping
-public  Lost findLostById(@Argument(name ="customerId" )UUID customerId){
-    return lostServices.findById(customerId);
-}
-// admin
-@QueryMapping
-public LostPageDTO<Lost> lostPageable(@Argument(name = "input")LostPageInput lostPageInput){
-    return lostServices.lostPageable(lostPageInput);
-}
-@QueryMapping
-public LostPageDTO<Lost> lostPageableIndex(@Argument(name = "pageInput")PaginationInput page,@Argument(name = "hasFound")boolean hasFound,@Argument(name = "location")String location){
-    return lostServices.lostPageableDefault(page,hasFound,location);
-}
-// customer
-@QueryMapping
-public List<Lost> customerLostFounds(@Argument(name = "username")String username,@Argument(name = "sort")String sort,@Argument(name = "hasFound")boolean hasFound){
-    return lostServices.customerLostFoundList(username,sort,hasFound);
-}
+    @Autowired
+    private LostServices lostServices;
 
+    @MutationMapping
+    public ResponseEntity<String> saveLost(@Argument(name = "lost") LostDTO lostDTO) {
+        return lostServices.saveLost(lostDTO);
+    }
+
+    @MutationMapping
+    public ResponseEntity<String> deleteLost(@Argument(name = "id") UUID lostId) {
+        return lostServices.deleteLost(lostId);
+    }
+
+    @QueryMapping
+    public List<Lost> lostList() {
+        return lostServices.findAll();
+    }
+
+    @QueryMapping
+    public List<Lost> customerLostPosts(@Argument(name = "customerId") long customerId) {
+        return lostServices.getCustomerLostPosts(customerId);
+    }
+
+    @QueryMapping
+    public Lost findLostById(@Argument(name = "customerId") UUID customerId) {
+        return lostServices.findById(customerId);
+    }
+
+    // admin
+    @QueryMapping
+    public LostPageDTO<Lost> lostPageable(@Argument(name = "input") LostPageInput lostPageInput) {
+        return lostServices.lostPageable(lostPageInput);
+    }
+
+    @QueryMapping
+    public LostPageDTO<Lost> lostPageableIndex(@Argument(name = "pageInput") PaginationInput page,
+            @Argument(name = "hasFound") boolean hasFound, @Argument(name = "location") String location) {
+        return lostServices.lostPageableDefault(page, hasFound, location);
+    }
+
+    // customer
+    @QueryMapping
+    public List<Lost> customerLostFounds(@Argument(name = "username") String username,
+            @Argument(name = "sort") String sort, @Argument(name = "hasFound") boolean hasFound) {
+        return lostServices.customerLostFoundList(username, sort, hasFound);
+    }
+    @QueryMapping
+    public List<Lost> searchLost(@Argument(name = "search") String search) {
+        String searchingString = search.toLowerCase();
+        return lostServices.searchLost(searchingString);
+    }
+    @QueryMapping
+    public long totalCustomerPostByHasFound(@Argument(name = "customerUsername")String customerUsername,@Argument(name = "hasFound")boolean hasFound){
+        return lostServices.totalCustomerPostByHasFound(customerUsername, hasFound);
+    }
+    @QueryMapping
+    public long totalLost(){return lostServices.totalLost();}
 }
