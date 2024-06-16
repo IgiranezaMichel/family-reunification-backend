@@ -1,5 +1,5 @@
 package com.familyreunificationbackend.enums;
 public enum Role {
-ADMIN,
-USER
+ROLE_ADMIN,
+ROLE_USER
 }
