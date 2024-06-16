@@ -1,14 +1,11 @@
 package com.familyreunificationbackend.model;
-import com.familyreunificationbackend.enums.Role;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,9 +21,6 @@ public class Cases {
 private long id;
 private String title;
 private String description;
-@ManyToOne(cascade = CascadeType.ALL,targetEntity =Customer.class)
-private Customer customer;
-private Role role;
 private LocalDateTime timeStamp;
 @OneToMany(cascade =CascadeType.ALL,targetEntity =Lost.class)
 private List<Lost>lostCases;
