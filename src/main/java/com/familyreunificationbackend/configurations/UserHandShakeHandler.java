@@ -17,7 +17,7 @@ public class UserHandShakeHandler extends DefaultHandshakeHandler{
     @Nullable
     protected Principal determineUser(ServerHttpRequest request, WebSocketHandler wsHandler,
             Map<String, Object> attributes) {
-                log.info("session : ",request.getHeaders());
+                log.info("session : ",request.getPrincipal());
         return new CoyotePrincipal(request.getPrincipal().getName());
     }
 
