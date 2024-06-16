@@ -73,8 +73,14 @@ public class Customer {
         this.username=username;
         this.password=password;
     }
-    @OneToMany(mappedBy = "customer",targetEntity=Cases.class,cascade =CascadeType.ALL )
-    public List<Cases>caseList;
+    @OneToMany(mappedBy = "chatInitiator",targetEntity=ChatRoom.class,cascade =CascadeType.MERGE )
+    private List<ChatRoom>chatInitiationList;
+    @OneToMany(mappedBy = "chatSubscriber",targetEntity=ChatRoom.class,cascade =CascadeType.MERGE )
+    private List<ChatRoom>chatSubscriberList;
+    @OneToMany(mappedBy = "sender",targetEntity=ChatMessage.class,cascade =CascadeType.ALL )
+    private List<ChatMessage>customerChatList;
+    @OneToMany(mappedBy = "receiver",targetEntity=ChatMessage.class,cascade =CascadeType.ALL )
+    private List<ChatMessage>receivedMessages;
     @OneToMany(mappedBy = "postedBy",targetEntity=Lost.class,cascade =CascadeType.ALL )
     public List<Lost>lostList;
     @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL,targetEntity = Comment.class)
